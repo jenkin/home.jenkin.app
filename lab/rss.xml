@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/scripts/pretty-feed-v3.xsl" type="text/xsl"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:h="http://www.w3.org/TR/html4/"><channel><title>JENKIN&apos;S 🛡️ HOME</title><description>The public journey of a self-hosting degen</description><link>https://home.jenkin.app</link><item><title>Server</title><link>https://home.jenkin.app/services/infrastructure/server</link><guid isPermaLink="true">https://home.jenkin.app/services/infrastructure/server</guid><description>Minisforum AI X1 Pro</description><content:encoded>&lt;p&gt;import { Aside } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;p&gt;I chose a &lt;a href=&quot;https://www.minisforum.com/it/products/minisforum-ai-x1-pro&quot;&gt;Minisforum AI X1 Pro&lt;/a&gt; as my home server.
+I bought it on Amazon during the Black Friday 2025 discounts, along with &lt;a href=&quot;https://it.crucial.com/memory/ddr5/ct2k64g56c46s5&quot;&gt;128 GB Crucial DDR5 SODIMM SDRAM&lt;/a&gt;
+and three nvme disks: two &lt;a href=&quot;https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/product/internal-drives/wd-black-ssd/data-sheet-wd-black-sn850x-nvme-ssd.pdf&quot;&gt;4 TB WD Black SN850X&lt;/a&gt;
+and one &lt;a href=&quot;https://it.crucial.com/ssd/t500/ct1000t500ssd8&quot;&gt;1 TB Crucial T500 Pro&lt;/a&gt; (all with heat sinks).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;infrastructure-server-minisforum.jpg&quot; alt=&quot;Minisforum AI X1 Pro and components&quot; title=&quot;Minisforum AI X1 Pro and components&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Opening&lt;/h2&gt;
+&lt;p&gt;The installation of all components is trivial. You need to unscrew the screws at the bottom (one is hidden under a rubber pad),
+then remove the metal case, and finally unscrew the cooler.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;infrastructure-server-inside.jpg&quot; alt=&quot;Minisforum AI X1 Pro without the metal cover&quot; title=&quot;Minisforum AI X1 Pro without the metal cover&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Under the cooler and around the power supply, you can find the interfaces of memories and disks.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;infrastructure-server-memories-disks.jpg&quot; alt=&quot;Minisforum AI X1 Pro with memories and disks&quot; title=&quot;Minisforum AI X1 Pro with memories and disks&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Memory&lt;/h2&gt;
+&lt;p&gt;There is little room for your fingers, but installing the two RAM memory modules is quite easy.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;infrastructure-server-memories.jpg&quot; alt=&quot;Minisforum AI X1 Pro with memories&quot; title=&quot;Minisforum AI X1 Pro with memories&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Disks&lt;/h2&gt;
+&lt;p&gt;Installing NVME disks is also easier.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;infrastructure-server-disks.jpg&quot; alt=&quot;Minisforum AI X1 Pro with disks&quot; title=&quot;Minisforum AI X1 Pro with disks&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Closing&lt;/h2&gt;
+&lt;p&gt;That&apos;s all, now you can again secure the cooler and metal cover with screws.&lt;/p&gt;</content:encoded></item><item><title>Installation</title><link>https://home.jenkin.app/services/proxmox/installation</link><guid isPermaLink="true">https://home.jenkin.app/services/proxmox/installation</guid><description>Proxmox VE</description><content:encoded>&lt;p&gt;import { Aside, Steps } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://proxmox.com/en/products/proxmox-virtual-environment/overview&quot;&gt;Proxmox Virtual Environment&lt;/a&gt; is a leading open-source server management platform for virtualization.&lt;/p&gt;
+&lt;h2&gt;Download the installer&lt;/h2&gt;
+&lt;p&gt;I assume you are using a Linux-based computer connected to Internet.&lt;/p&gt;
+&lt;h2&gt;Boot the server&lt;/h2&gt;
+&lt;p&gt;You need to plug a screen and a keyboard and connect your server to Internet to properly install the system.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-installation-installer.jpg&quot; alt=&quot;Proxmox installer&quot; title=&quot;Proxmox installer&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Configure installation&lt;/h2&gt;
+&lt;p&gt;You can simply follow the installation wizard and customize configuration for your needs.
+I used the whole Crucial T500 Pro disk (1 TB with &lt;a href=&quot;https://en.wikipedia.org/wiki/ZFS&quot;&gt;ZFS&lt;/a&gt;)
+for the system installation and to store VM and CT images.&lt;/p&gt;
+&lt;h2&gt;Reboot&lt;/h2&gt;
+&lt;p&gt;At the end of the installation process, reboot the server and remove the USB stick.
+Now you can also unplug screen and keyboard, the Proxmox graphical interface is available as a web application on port &lt;code&gt;8006&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-installation-gui.jpg&quot; alt=&quot;Proxmox GUI&quot; title=&quot;Proxmox GUI&quot;&gt;&lt;/p&gt;</content:encoded></item><item><title>Pulse</title><link>https://home.jenkin.app/services/proxmox/pulse</link><guid isPermaLink="true">https://home.jenkin.app/services/proxmox/pulse</guid><description>A lightweight monitoring application for Proxmox VE.</description><content:encoded>&lt;p&gt;import { Aside } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/rcourtman/Pulse&quot;&gt;Pulse&lt;/a&gt; is a full-featured real-time monitoring tool for Proxmox, Docker, and Kubernetes infrastructure.
+I&apos;m using it to monitor Proxmox server, VMs and LXCs, docker containers living inside the VMs.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Use the &lt;a href=&quot;https://community-scripts.github.io/ProxmoxVE/scripts?id=pulse&quot;&gt;helper script&lt;/a&gt; and follow the instructions.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-helperscripts-pulse.png&quot; alt=&quot;Helper Script Pulse&quot; title=&quot;Helper Script Pulse&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;Check the IP assigned to the new LXC container, browse to &lt;code&gt;http://192.168.X.Y:7655&lt;/code&gt;, and go to Settings.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-pulse-settings.png&quot; alt=&quot;Pulse settings&quot; title=&quot;Pulse settings&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Use the auto-discovery feature to locate your Proxmox node, then set it up using Agent install.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-pulse-pvenode.png&quot; alt=&quot;Pulse proxmox node&quot; title=&quot;Pulse proxmox node&quot;&gt;&lt;/p&gt;
+&lt;p&gt;With the Proxmox agent you can also monitor VMs and CTs, but if you want more control over processes running inside a VM,
+you can manually install additional agents in them.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-pulse-vm.png&quot; alt=&quot;Pulse VM agents&quot; title=&quot;Pulse VM agents&quot;&gt;&lt;/p&gt;
+&lt;p&gt;For example, if you use Docker inside a VM, you can monitor status and resources for each container.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-pulse-docker.png&quot; alt=&quot;Pulse Docker&quot; title=&quot;Pulse Docker&quot;&gt;&lt;/p&gt;</content:encoded></item><item><title>Setup</title><link>https://home.jenkin.app/services/proxmox/setup</link><guid isPermaLink="true">https://home.jenkin.app/services/proxmox/setup</guid><description>Storage and network management</description><content:encoded>&lt;p&gt;import { Aside, Steps } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;p&gt;There are tons of configurations, but the defaults are pretty good for basic needs.
+Here I&apos;ll focus on my own setup, please refer to the &lt;a href=&quot;https://pve.proxmox.com/pve-docs/&quot;&gt;official documentation&lt;/a&gt; for further details.&lt;/p&gt;
+&lt;h2&gt;Secure Shell&lt;/h2&gt;
+&lt;p&gt;Sometimes you need to connect to the underlying system (Debian 13 for Proxmox v9) from a console to perform low level operations.
+I suggest you to properly configure SSH and register your public key to connect without password prompting.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;Host *
+    ServerAliveInterval 30
+
+Host pve.local
+    HostName 192.168.X.X
+    User root
+    Port 22
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then run &lt;code&gt;ssh-copy-id pve.local&lt;/code&gt; once and now you can connect simply using &lt;code&gt;ssh pve.local&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Disks and volumes&lt;/h2&gt;
+&lt;p&gt;My server has &lt;a href=&quot;/lab/infrastructure/server&quot;&gt;three disks&lt;/a&gt;: the slower and smaller one (1 TB) is for system, configurations, and VM/CT images,
+the others two are mounted in &lt;a href=&quot;https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0&quot;&gt;RAID0&lt;/a&gt; using &lt;a href=&quot;https://en.wikipedia.org/wiki/ZFS&quot;&gt;ZFS&lt;/a&gt;
+and they are intended for data volumes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;4. Check the pool status: `zpool status -v`
+5. Expose the pool to PVE: `pvesm add zfspool local-data --pool zpool` (you can change `local-data` name)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now I have 8 super-fast terabytes where I can store VM and CT data.&lt;/p&gt;</content:encoded></item><item><title>Zcash</title><link>https://home.jenkin.app/services/services/zcash</link><guid isPermaLink="true">https://home.jenkin.app/services/services/zcash</guid><description>Unstoppable private money</description><content:encoded>&lt;p&gt;import { Card } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://z.cash/&quot;&gt;Zcash&lt;/a&gt; is the first cryptocurrency to develop zero-knowledge encryption for private peer-to-peer payments.
+It&apos;s a decentralized blockchain powered by a Proof-of-Work consensus mechanism.
+Network security and resilience depend both on miners and node operators.&lt;/p&gt;
+&lt;p&gt;&amp;#x3C;Card
+as=&apos;a&apos;
+href=&apos;https://x.ombie.cash/&apos;
+target=&apos;_blank&apos;
+heading=&apos;Z 🛡️ Ombie 🛡️ Cash&apos;
+subheading=&quot;I&apos;m proud to be a Zcash node operator!&quot;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;If you care about economic freedom and self-sovereignty,
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;if you think that privacy matters,
+if you are interested in blockchain technology,
+take a look at my project and enter the rabbit hole!
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title>Cloud</title><link>https://home.jenkin.app/services/infrastructure/cloud</link><guid isPermaLink="true">https://home.jenkin.app/services/infrastructure/cloud</guid><description>VPSs and more</description><content:encoded>&lt;p&gt;Even though I call myself self-hosting degen, sometimes I need the cloud for basic stuff and to expose public services without too many delivery or security issues.&lt;/p&gt;
+&lt;h2&gt;Basic services&lt;/h2&gt;
+&lt;p&gt;Currently I&apos;m using &lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;Cloudflare&lt;/a&gt; for domains and DNS, &lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt; for code and static site hosting (yes, I know, I&apos;m working on it), &lt;a href=&quot;https://proton.me/&quot;&gt;Proton&lt;/a&gt; for email services.&lt;/p&gt;
+&lt;h2&gt;VPS&lt;/h2&gt;
+&lt;p&gt;I have two VPSs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a &lt;a href=&quot;https://mynymbox.net/vps&quot;&gt;VPS NL-1&lt;/a&gt; by MyNymBox for &lt;a href=&quot;/lab/tailscale/headscale&quot;&gt;headscale&lt;/a&gt; only&lt;/li&gt;
+&lt;li&gt;a &lt;a href=&quot;https://www.ionos.it/server/vps&quot;&gt;VPS S&lt;/a&gt; by IONOS for &lt;a href=&quot;/lab/services/zcash&quot;&gt;Zcash&lt;/a&gt; exit node&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title>Networking</title><link>https://home.jenkin.app/services/infrastructure/networking</link><guid isPermaLink="true">https://home.jenkin.app/services/infrastructure/networking</guid><description>Modem, routers, switches, and access points</description><content:encoded>&lt;p&gt;My house is connected to the Internet via two connections and two different ISPs:
+via FTTH at 1 Gbps and via 5G at an average of 300 Mbps.&lt;/p&gt;
+&lt;h2&gt;FTTH&lt;/h2&gt;
+&lt;p&gt;The fiber enters the house on the ground floor and is connected to an &lt;a href=&quot;https://hack-gpon.org/ont-zte-f6005v3/&quot;&gt;ONT&lt;/a&gt; and then to the &lt;a href=&quot;https://www.tim.it/prodotti/tablet-pc-modem/modem-tim-hub-plus&quot;&gt;modem&lt;/a&gt; with 1 Gbps WAN and LAN ports only. Both are under an &lt;a href=&quot;https://www.se.com/it/it/product/BE850G2-IT/apc-backups-850-va-230-v-porte-di-ricarica-usb-typec-e-a-8-prese-schuko-cee-7-2-sovratensioni/&quot;&gt;uninterruptible power supply&lt;/a&gt; by APC.&lt;/p&gt;
+&lt;h2&gt;Multi-WAN router&lt;/h2&gt;
+&lt;p&gt;A Cat8 LAN cable carries the signal to the second floor where I have my lab. Here it&apos;s connected to the WAN port of a &lt;a href=&quot;https://www.cudy.com/it-it/products/r700-1-0&quot;&gt;1 Gbps multi-WAN router&lt;/a&gt; by Cudy.&lt;/p&gt;
+&lt;h2&gt;5G&lt;/h2&gt;
+&lt;p&gt;On the roof I installed a &lt;a href=&quot;https://www.kaserstore.com/collections/mondo-4g-5g-lte/products/kaser-antenna-5g-4g-lte-pannello-esterno-mimo-698-2700-3300-3800-mhz-guadagno-fino-12-dbi-cavi-da-10m-v3&quot;&gt;5G antenna&lt;/a&gt; by Kaser that amplifies the input signal to a &lt;a href=&quot;https://www.tp-link.com/it/home-networking/5g-4g-router/deco-x3000-5g/&quot;&gt;5G modem&lt;/a&gt; by TP-Link. It&apos;s powered by an &lt;a href=&quot;https://www.se.com/it/it/product/BE400-IT/apc-backups-400-230-v-italia/&quot;&gt;APC UPS&lt;/a&gt; and it&apos;s connected to the multi-WAN router as backup connection via a Cat6 cable.&lt;/p&gt;
+&lt;h2&gt;Access point&lt;/h2&gt;
+&lt;p&gt;Finally the multi-WAN router carries the signal to an &lt;a href=&quot;https://www.asus.com/it/networking-iot-servers/whole-home-mesh-wifi-system/zenwifi-wifi-systems/asus-zenwifi-xd6/&quot;&gt;ASUS ZenWifi&lt;/a&gt; router and access point to which my &lt;a href=&quot;/lab/infrastructure/server&quot;&gt;server&lt;/a&gt; is connected via a Cat6 cable. Routers and server are powered by another &lt;a href=&quot;https://www.se.com/it/it/product/BR1600SI/apc-backups-pro-1600-va-960-w-tower-230-v-8-prese-iec-c13-onda-sinusoidale-avr-porte-usb-tipo-a-+-c-lcd-batteria-sostituibile-dallutente/&quot;&gt;APC UPS&lt;/a&gt;.&lt;/p&gt;</content:encoded></item><item><title>Exit nodes</title><link>https://home.jenkin.app/services/tailscale/exit-nodes</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/exit-nodes</guid><description>Tailscale</description><content:encoded>&lt;p&gt;WIP&lt;/p&gt;</content:encoded></item><item><title>Headscale</title><link>https://home.jenkin.app/services/tailscale/headscale</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/headscale</guid><description>An open source, self-hosted implementation of the Tailscale control server.</description><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;Headscale&apos;s goal is to provide self-hosters and hobbyists with an open-source server they can use for their projects and labs. It implements a narrow scope, a single Tailscale network (tailnet), suitable for a personal use, or a small open-source organisation.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;WIP&lt;/p&gt;</content:encoded></item><item><title>Overview</title><link>https://home.jenkin.app/services/tailscale/overview</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/overview</guid><description>A Zero Trust identity-based connectivity platform</description><content:encoded>&lt;p&gt;&lt;a href=&quot;https://tailscale.com/&quot;&gt;Tailscale&lt;/a&gt; is a full-featured solution for peer-to-peer networks powered by &lt;a href=&quot;https://www.wireguard.com/&quot;&gt;WireGuard&lt;/a&gt; tunnels.&lt;/p&gt;
+&lt;p&gt;I have two stringent requirements that a solution like Tailscale meets very well:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;I don&apos;t want that remote servers know my real IP when I send requests from a service hosted by my home server&lt;/li&gt;
+&lt;li&gt;I want that a service running on my home server is publicly (and securely) reachable from outside without opening my router ports&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Tailscale Inc. offers a full-managed cloud-based solution, but &lt;a href=&quot;https://github.com/tailscale/tailscale&quot;&gt;client-side&lt;/a&gt; and &lt;a href=&quot;https://github.com/juanfont/headscale&quot;&gt;server-side&lt;/a&gt; code is open,
+so I managed to self-host my own solution.&lt;/p&gt;</content:encoded></item><item><title>Regular nodes</title><link>https://home.jenkin.app/services/tailscale/regular-nodes</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/regular-nodes</guid><description>Tailscale</description><content:encoded>&lt;p&gt;WIP&lt;/p&gt;</content:encoded></item><item><title>Helper scripts</title><link>https://home.jenkin.app/services/proxmox/helper-scripts</link><guid isPermaLink="true">https://home.jenkin.app/services/proxmox/helper-scripts</guid><description>Manage and execute Proxmox helper scripts locally with live output streaming</description><content:encoded>&lt;p&gt;&lt;a href=&quot;https://community-scripts.github.io/ProxmoxVE/&quot;&gt;PVE Helper Scripts&lt;/a&gt; is a valuable project that simplifies Proxmox management.
+You can search for the script you need using the official repository,
+but I chose to &lt;a href=&quot;https://github.com/community-scripts/ProxmoxVE-Local&quot;&gt;install it locally&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;From the server shell, run the following script that spins up a pre-configured LXC container.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/pve-scripts-local.sh)&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check the IP assigned to the new LXC container and browse to &lt;code&gt;http://192.168.X.Y:3000&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-helperscripts-gui.png&quot; alt=&quot;Helper Scripts GUI&quot; title=&quot;Helper Scripts GUI&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;You can browse the repository and search for the scripts you need. Then you can download and run them from the web interface.&lt;/p&gt;
+&lt;p&gt;The first one I suggest you to run is &lt;a href=&quot;https://community-scripts.github.io/ProxmoxVE/scripts?id=post-pve-install&quot;&gt;PVE Post Install&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This script provides options for managing Proxmox VE repositories, including disabling the Enterprise Repo, adding or correcting PVE sources, enabling the No-Subscription Repo, adding the test Repo, disabling the subscription nag, updating Proxmox VE, and rebooting the system.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;proxmox-helperscripts-pvepostinstall.png&quot; alt=&quot;Helper Script PVE Post Install&quot; title=&quot;Helper Script PVE Post Install&quot;&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
