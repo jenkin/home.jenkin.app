@@ -102,17 +102,158 @@ via FTTH at 1 Gbps and via 5G at an average of 300 Mbps.&lt;/p&gt;
 &lt;h2&gt;5G&lt;/h2&gt;
 &lt;p&gt;On the roof I installed a &lt;a href=&quot;https://www.kaserstore.com/collections/mondo-4g-5g-lte/products/kaser-antenna-5g-4g-lte-pannello-esterno-mimo-698-2700-3300-3800-mhz-guadagno-fino-12-dbi-cavi-da-10m-v3&quot;&gt;5G antenna&lt;/a&gt; by Kaser that amplifies the input signal to a &lt;a href=&quot;https://www.tp-link.com/it/home-networking/5g-4g-router/deco-x3000-5g/&quot;&gt;5G modem&lt;/a&gt; by TP-Link. It&apos;s powered by an &lt;a href=&quot;https://www.se.com/it/it/product/BE400-IT/apc-backups-400-230-v-italia/&quot;&gt;APC UPS&lt;/a&gt; and it&apos;s connected to the multi-WAN router as backup connection via a Cat6 cable.&lt;/p&gt;
 &lt;h2&gt;Access point&lt;/h2&gt;
-&lt;p&gt;Finally the multi-WAN router carries the signal to an &lt;a href=&quot;https://www.asus.com/it/networking-iot-servers/whole-home-mesh-wifi-system/zenwifi-wifi-systems/asus-zenwifi-xd6/&quot;&gt;ASUS ZenWifi&lt;/a&gt; router and access point to which my &lt;a href=&quot;/lab/infrastructure/server&quot;&gt;server&lt;/a&gt; is connected via a Cat6 cable. Routers and server are powered by another &lt;a href=&quot;https://www.se.com/it/it/product/BR1600SI/apc-backups-pro-1600-va-960-w-tower-230-v-8-prese-iec-c13-onda-sinusoidale-avr-porte-usb-tipo-a-+-c-lcd-batteria-sostituibile-dallutente/&quot;&gt;APC UPS&lt;/a&gt;.&lt;/p&gt;</content:encoded></item><item><title>Exit nodes</title><link>https://home.jenkin.app/services/tailscale/exit-nodes</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/exit-nodes</guid><description>Tailscale</description><content:encoded>&lt;p&gt;WIP&lt;/p&gt;</content:encoded></item><item><title>Headscale</title><link>https://home.jenkin.app/services/tailscale/headscale</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/headscale</guid><description>An open source, self-hosted implementation of the Tailscale control server.</description><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;Headscale&apos;s goal is to provide self-hosters and hobbyists with an open-source server they can use for their projects and labs. It implements a narrow scope, a single Tailscale network (tailnet), suitable for a personal use, or a small open-source organisation.&lt;/p&gt;
+&lt;p&gt;Finally the multi-WAN router carries the signal to an &lt;a href=&quot;https://www.asus.com/it/networking-iot-servers/whole-home-mesh-wifi-system/zenwifi-wifi-systems/asus-zenwifi-xd6/&quot;&gt;ASUS ZenWifi&lt;/a&gt; router and access point to which my &lt;a href=&quot;/lab/infrastructure/server&quot;&gt;server&lt;/a&gt; is connected via a Cat6 cable. Routers and server are powered by another &lt;a href=&quot;https://www.se.com/it/it/product/BR1600SI/apc-backups-pro-1600-va-960-w-tower-230-v-8-prese-iec-c13-onda-sinusoidale-avr-porte-usb-tipo-a-+-c-lcd-batteria-sostituibile-dallutente/&quot;&gt;APC UPS&lt;/a&gt;.&lt;/p&gt;</content:encoded></item><item><title>Exit nodes</title><link>https://home.jenkin.app/services/tailscale/exit-nodes</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/exit-nodes</guid><description>Obligatory route</description><content:encoded>&lt;p&gt;import { Aside, Steps, Tabs, TabItem } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;p&gt;Every node that want to join your tailscale network must have &lt;a href=&quot;https://tailscale.com/download&quot;&gt;Tailscale Client&lt;/a&gt; installed (see &lt;a href=&quot;/lab/tailscale/regular-nodes&quot;&gt;regular nodes&lt;/a&gt;).&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Supposing a GNU/Linux Debian 13 Trixie operating system, you can install it with &lt;code&gt;curl -fsSL https://tailscale.com/install.sh | sh&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Then you need to join the network using a running &lt;a href=&quot;/lab/tailscale/headscale&quot;&gt;headscale server&lt;/a&gt;, but this time you need to declare the node as an exit one.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;tailscale up \
+    --login-server=https://hs.yourdomain.app \
+    --advertise-exit-node \
+    --accept-routes \
+    --accept-dns=true \
+    --hostname=your-node-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first time you need to accept the new node following the instructions shown.&lt;/p&gt;
+&lt;p&gt;Then you can check the list of registered nodes on headscale server with &lt;code&gt;headscale nodes list&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The exit node should be listed also as route: &lt;code&gt;headscale nodes list-routes&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Firewall setup&lt;/h3&gt;
+&lt;p&gt;If your node is exposed to Internet (ie. a VPS with a public IP) and you want to control open ports,
+you can allow udp traffic on port 41641. Using ufw: &lt;code&gt;ufw allow 41641/udp&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Incoming traffic&lt;/h3&gt;
+&lt;p&gt;If you need to forward incoming traffic to another node on tailscale network,
+you need to allow forwarding at kernel and firewall level, and incoming traffic
+on tailscale network interface.&lt;/p&gt;
+&lt;p&gt;Now you have two options: use a reverse proxy or configure a NAT.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```txt title=&quot;/etc/caddy/Caddyfile&quot;
+public.yourdomain.app {
+    reverse_proxy 100.64.0.X:8080
+}
+```
+
+Then apply changes: `systemctl restart caddy`.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;```txt title=&quot;/etc/ufw/before.rules&quot;
+*nat
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -p tcp --dport 9999 -j DNAT --to-destination 100.64.0.X:9999
+-A POSTROUTING -p tcp -d 100.64.0.X --dport 9999 -j MASQUERADE
+COMMIT
+```
+
+&amp;#x3C;Aside type=&quot;caution&quot;&gt;
+    This `*nat` block should be on top of the file before `*filter` block!
+    And don&apos;t forget the `COMMIT`!
+&amp;#x3C;/Aside&gt;
+
+Of course the port must be open: `ufw allow 9999/tcp`.
+
+Then apply changes: `systemctl restart ufw`.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Kernel tweaks&lt;/h3&gt;
+&lt;p&gt;Update the Generic Receive Offload (GRO) settings if needed.&lt;/p&gt;
+&lt;p&gt;See the &lt;a href=&quot;https://tailscale.com/kb/1320/performance-best-practices#linux-optimizations-for-subnet-routers-and-exit-nodes&quot;&gt;official documentation&lt;/a&gt; for details.&lt;/p&gt;</content:encoded></item><item><title>Headscale</title><link>https://home.jenkin.app/services/tailscale/headscale</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/headscale</guid><description>An open source, self-hosted implementation of the Tailscale control server.</description><content:encoded>&lt;p&gt;import { Aside, Steps } from &apos;astro-pure/user&apos;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Headscale&apos;s goal is to provide self-hosters and hobbyists with an open-source server they can use for their projects and labs.
+It implements a narrow scope, a single Tailscale network (tailnet), suitable for a personal use, or a small open-source organisation.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;WIP&lt;/p&gt;</content:encoded></item><item><title>Overview</title><link>https://home.jenkin.app/services/tailscale/overview</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/overview</guid><description>A Zero Trust identity-based connectivity platform</description><content:encoded>&lt;p&gt;&lt;a href=&quot;https://tailscale.com/&quot;&gt;Tailscale&lt;/a&gt; is a full-featured solution for peer-to-peer networks powered by &lt;a href=&quot;https://www.wireguard.com/&quot;&gt;WireGuard&lt;/a&gt; tunnels.&lt;/p&gt;
+&lt;p&gt;I&apos;m going to use a &lt;a href=&quot;https://mynymbox.net/vps&quot;&gt;VPS NL-1&lt;/a&gt; by MyNymBox, so 1 vCPU, 512 MB of RAM, 10 GB of disk, and 1 TB of traffic per month.
+Headscale should only coordinate nodes, so these requirements should be sufficient for tens or few hundreds of nodes.&lt;/p&gt;
+&lt;h2&gt;Getting started&lt;/h2&gt;
+&lt;p&gt;My operating system of choice is &lt;a href=&quot;https://www.debian.org/releases/trixie/release-notes/index.en.html&quot;&gt;GNU/Linux Debian 13 Trixie&lt;/a&gt;.
+I suggest to update the system at the very first login: &lt;code&gt;apt update &amp;#x26;&amp;#x26; apt dist-upgrade&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;SSH client&lt;/h3&gt;
+&lt;p&gt;First of all, save server details in SSH config on your computer.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;Host *
+    ServerAliveInterval 30
+
+Host hs.remote
+    HostName X.X.X.X
+    User root
+    Port 22
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then enable SSH login via public key with &lt;code&gt;ssh-copy-id hs.remote&lt;/code&gt; and now you can connect simply using &lt;code&gt;ssh hs.remote&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;SSH server&lt;/h3&gt;
+&lt;p&gt;Changing SSH port is a best practice to avoid malicious bot traffic.
+On the server edit the SSH server config in &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;# A random port number between 1024 and 65535
+Port 49876
+# Disable password login, use only public key
+PermitRootLogin prohibit-password
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Restart SSH server with &lt;code&gt;systemctl restart sshd&lt;/code&gt; and terminate connection.&lt;/p&gt;
+&lt;p&gt;Change host port in your &lt;code&gt;~/.ssh/config&lt;/code&gt; and login again.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;We need two services: &lt;a href=&quot;https://headscale.net/stable/&quot;&gt;Headscale&lt;/a&gt; and &lt;a href=&quot;https://caddyserver.com/&quot;&gt;Caddy&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Headscale&lt;/h3&gt;
+&lt;p&gt;The default and recommended way to install headscale is using official &lt;code&gt;.deb&lt;/code&gt; packages
+(see the &lt;a href=&quot;https://headscale.net/stable/setup/install/official/#using-packages-for-debianubuntu-recommended&quot;&gt;official documentation&lt;/a&gt;).&lt;/p&gt;
+&lt;h3&gt;Caddy&lt;/h3&gt;
+&lt;p&gt;Headscale has to be publicly reachable by nodes, so we need to expose it to external traffic via https.
+We will use Caddy as reverse proxy and to automatically manage TLS termination (see the &lt;a href=&quot;https://caddyserver.com/docs/automatic-https&quot;&gt;official documentation&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Install it from official repository: &lt;code&gt;apt install caddy&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Configuration&lt;/h2&gt;
+&lt;h3&gt;Headscale&lt;/h3&gt;
+&lt;p&gt;Main configuration is stored in &lt;code&gt;/etc/headscale/config.yaml&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;# Public domain, you need to register it and control the DNS
+server_url: https://hs.yourdomain.app
+dns:
+    # If you want to use domain names such as headscale.home.yourdomain.app
+    # for your nodes inside the tailscale network instead of 100.64.0.X
+    magic_dns: true
+    # You can use any valid domain name, not related to your server_url
+    base_domain: home.yourdomain.app
+    override_local_dns: true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now apply the new configuration: &lt;code&gt;systemctl enable --now headscale&lt;/code&gt;.
+Check if headscale daemon is running as expected: &lt;code&gt;systemctl status headscale&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Create the user the network nodes will belong to: &lt;code&gt;headscale users create your_name&lt;/code&gt;.
+Check if it exists: &lt;code&gt;headscale users list&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Caddy&lt;/h3&gt;
+&lt;p&gt;Edit the configuration file: &lt;code&gt;/etc/caddy/Caddyfile&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;hs.yourdomain.app {
+    reverse_proxy 127.0.0.1:8080
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apply the new configuration: &lt;code&gt;systemctl restart caddy&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;DNS&lt;/h3&gt;
+&lt;p&gt;Your domain need to be resolved to your VPS&apos;s public IPs (IPv4 and IPv6), so you need to add these DNS records for &lt;code&gt;yourdomain.app&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;A    hs X.X.X.X
+AAAA hs X:X:X:X::X
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now a request sent to &lt;code&gt;https://hs.yourdomain.app&lt;/code&gt; is managed by Caddy on your VPS:
+automatic TLS certificates management, TLS termination, reverse proxy to headscale.&lt;/p&gt;
+&lt;h2&gt;Final steps&lt;/h2&gt;
+&lt;p&gt;SSH server needs custom port 49876, caddy needs public ports 80 (http) and 443 (https),
+tailscale needs port 41641 for udp traffic.&lt;/p&gt;
+&lt;p&gt;Setup a firewall that closes all ports but those really needed is strongly suggested.&lt;/p&gt;</content:encoded></item><item><title>Overview</title><link>https://home.jenkin.app/services/tailscale/overview</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/overview</guid><description>A Zero Trust identity-based connectivity platform</description><content:encoded>&lt;p&gt;&lt;a href=&quot;https://tailscale.com/&quot;&gt;Tailscale&lt;/a&gt; is a full-featured solution for peer-to-peer networks powered by &lt;a href=&quot;https://www.wireguard.com/&quot;&gt;WireGuard&lt;/a&gt; tunnels.&lt;/p&gt;
 &lt;p&gt;I have two stringent requirements that a solution like Tailscale meets very well:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;I don&apos;t want that remote servers know my real IP when I send requests from a service hosted by my home server&lt;/li&gt;
 &lt;li&gt;I want that a service running on my home server is publicly (and securely) reachable from outside without opening my router ports&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Tailscale Inc. offers a full-managed cloud-based solution, but &lt;a href=&quot;https://github.com/tailscale/tailscale&quot;&gt;client-side&lt;/a&gt; and &lt;a href=&quot;https://github.com/juanfont/headscale&quot;&gt;server-side&lt;/a&gt; code is open,
-so I managed to self-host my own solution.&lt;/p&gt;</content:encoded></item><item><title>Regular nodes</title><link>https://home.jenkin.app/services/tailscale/regular-nodes</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/regular-nodes</guid><description>Tailscale</description><content:encoded>&lt;p&gt;WIP&lt;/p&gt;</content:encoded></item><item><title>Helper scripts</title><link>https://home.jenkin.app/services/proxmox/helper-scripts</link><guid isPermaLink="true">https://home.jenkin.app/services/proxmox/helper-scripts</guid><description>Manage and execute Proxmox helper scripts locally with live output streaming</description><content:encoded>&lt;p&gt;&lt;a href=&quot;https://community-scripts.github.io/ProxmoxVE/&quot;&gt;PVE Helper Scripts&lt;/a&gt; is a valuable project that simplifies Proxmox management.
+so I managed to self-host my own solution.&lt;/p&gt;</content:encoded></item><item><title>Regular nodes</title><link>https://home.jenkin.app/services/tailscale/regular-nodes</link><guid isPermaLink="true">https://home.jenkin.app/services/tailscale/regular-nodes</guid><description>Join the tailnet</description><content:encoded>&lt;p&gt;Every node that want to join your tailscale network must have &lt;a href=&quot;https://tailscale.com/download&quot;&gt;Tailscale Client&lt;/a&gt; installed.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Supposing a GNU/Linux Debian 13 Trixie operating system, you can install it with &lt;code&gt;curl -fsSL https://tailscale.com/install.sh | sh&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Then you need to join the network using a running &lt;a href=&quot;/lab/tailscale/headscale&quot;&gt;headscale server&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;tailscale up \
+    --login-server=https://hs.yourdomain.app \
+    --accept-dns=true \
+    --hostname=your-node-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first time you need to accept the new node following the instructions shown.&lt;/p&gt;
+&lt;p&gt;Then you can check the list of registered nodes on headscale server with &lt;code&gt;headscale nodes list&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Using an exit node&lt;/h3&gt;
+&lt;p&gt;If you want to forward all outgoing traffic through another node configured as &lt;a href=&quot;/lab/tailscale/exit-nodes&quot;&gt;exit node&lt;/a&gt;, you need to set it up.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;tailscale set \
+    --exit-node=100.64.0.X \
+    --exit-node-allow-lan-access
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Firewall setup&lt;/h3&gt;
+&lt;p&gt;If your node is exposed to Internet (ie. a VPS with a public IP) and you want to control open ports, you can allow udp traffic on port 41641. Using ufw: &lt;code&gt;ufw allow 41641/udp&lt;/code&gt;.&lt;/p&gt;</content:encoded></item><item><title>Helper scripts</title><link>https://home.jenkin.app/services/proxmox/helper-scripts</link><guid isPermaLink="true">https://home.jenkin.app/services/proxmox/helper-scripts</guid><description>Manage and execute Proxmox helper scripts locally with live output streaming</description><content:encoded>&lt;p&gt;&lt;a href=&quot;https://community-scripts.github.io/ProxmoxVE/&quot;&gt;PVE Helper Scripts&lt;/a&gt; is a valuable project that simplifies Proxmox management.
 You can search for the script you need using the official repository,
 but I chose to &lt;a href=&quot;https://github.com/community-scripts/ProxmoxVE-Local&quot;&gt;install it locally&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Installation&lt;/h2&gt;
